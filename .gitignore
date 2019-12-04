@@ -1,2 +1,7 @@
-drawmore-frontend/node_modules
-drawmore-frontend/dist
+# Frontend exclusions
+**/drawmore-frontend/node_modules/
+**/drawmore-frontend/dist/
+
+# Backend exclusions
+
+# Deployment exclusions
