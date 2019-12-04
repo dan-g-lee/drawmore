@@ -1,15 +1,47 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: path.join(__dirname, 'src', 'index.js'),
     module: {
         rules: [
-            { test: /\.(js|jsx)$/, use: 'babel-loader' },
-            { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-            { test: /\.html$/, use: 'html-loader' },
+            { 
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            { 
+                test: /\.(sa|sc|c)ss$/, 
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader'
+                    }, 
+                    {
+                        loader: 'postcss-loader'
+                    }, 
+                    { 
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('sass')
+                        }
+                    }
+                ] 
+            },
+            { 
+                test: /\.html$/, 
+                use: 'html-loader' 
+            },
         ]
     },
     output: {
@@ -21,8 +53,10 @@ module.exports = {
             template: './public/index.html',
             filename: './index.html'
         }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new MiniCssExtractPlugin({
+            filename: 'bundle.css'
+        }),
+        new BundleAnalyzerPlugin()
     ],
     resolve: {
         extensions: ['*', '.js', '.jsx']
