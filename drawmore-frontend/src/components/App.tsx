@@ -1,8 +1,8 @@
 import React from 'react';
-import '../sass/App.scss';
+import '../styles/App.scss';
 
-export default class App extends React.Component {
-  render() {
+export default class App extends React.Component<any, any> {
+  render(): React.ReactNode {
     return (
       <div>
         <h1 className="title">Hello, World!</h1>
