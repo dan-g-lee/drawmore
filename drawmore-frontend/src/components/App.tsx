@@ -14,15 +14,3 @@ const App = () => {
 }
 
 export default App;
-
-// export default class App extends React.Component<any, any> {
-//   render(): React.ReactNode {
-//     return (
-//       <BrowserRouter>
-//        <Switch>
-//          <Route exact path='/' component={HomePage} />
-//        </Switch>
-//      </BrowserRouter>
-//     );
-//   }
-// }
